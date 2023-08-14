@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 // const bcrypt = require('bcryptjs');
 
-const MoviesChema = new mongoose.Schema({
+const moviesChema = new mongoose.Schema({
   country: {
     type: String,
   },
@@ -67,4 +67,4 @@ const MoviesChema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('movies', MoviesChema);
+module.exports = mongoose.model('movies', moviesChema);
