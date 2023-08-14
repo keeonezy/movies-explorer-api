@@ -18,15 +18,15 @@ app.use(express.json());
 app.use(router);
 
 // централизованный обработчик ошибок
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode)
-    .send({
-      message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
-    });
+// app.use((err, req, res, next) => {
+//   const { statusCode = 500, message } = err;
+//   res.status(statusCode)
+//     .send({
+//       message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+//     });
 
-  next();
-});
+//   next();
+// });
 
 // Беру порт и передаю колбэк, он вызовется в момент его старта
 app.listen(PORT, () => {
