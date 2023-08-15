@@ -24,27 +24,15 @@ module.exports.userUpdateValidator = celebrate({
   }),
 });
 
-module.exports.userAvatarValidator = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(/^https?:\/\/(www\.)?[a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+#?$/i),
-  }),
-});
-
-module.exports.userIdValidator = celebrate({
-  params: Joi.object().keys({
-    id: Joi.string().required().hex().length(24),
-  }),
-});
-
-module.exports.cardCreateValidator = celebrate({
+module.exports.movieCreateValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().pattern(/^https?:\/\/(www\.)?[a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+#?$/i),
   }),
 });
 
-module.exports.cardIdValidator = celebrate({
+module.exports.movieIdValidator = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().required().hex().length(24),
+    movieId: Joi.string().required().hex().length(24),
   }),
 });

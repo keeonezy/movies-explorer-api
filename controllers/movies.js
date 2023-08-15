@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const Movie = require('../models/movies');
 const { STATUS_CREATED } = require('../errors/responseStatus');
 const BadRequestError = require('../errors/status-400');
@@ -28,14 +26,14 @@ module.exports.createMovies = (req, res, next) => {
 };
 
 module.exports.deleteMovies = (req, res, next) => {
-  Movie.findByIdAndDelete(req.params.cardId)
+  Movie.findByIdAndDelete(req.params.movieId)
     .orFail(() => { throw new NotFoundError('Карточка для удаления не найдена'); })
     .then((card) => card.owner.equals(req.user._id))
     .then((match) => {
       if (!match) {
         throw new ForbiddenError('Нет прав для удаления данной карточки');
       }
-      return Movie.findByIdAndRemove(req.params.cardId);
+      return Movie.findByIdAndRemove(req.params.movieId);
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => {

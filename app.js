@@ -3,8 +3,8 @@ const express = require('express');
 require('dotenv').config();
 // Для работы с БД
 const mongoose = require('mongoose');
-const router = require('./routes');
 const { errors } = require('celebrate');
+const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const { PORT, urlBD } = require('./config');
