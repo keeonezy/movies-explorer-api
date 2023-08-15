@@ -27,7 +27,7 @@ module.exports.createMovies = (req, res, next) => {
 
 module.exports.deleteMovies = (req, res, next) => {
   Movie.findByIdAndDelete(req.params.movieId)
-    .orFail(() => { throw new NotFoundError('Карточка для удаления не найдена'); })
+    .orFail(() => { throw new NotFoundError('Фильм для удаления не найдена'); })
     .then((movie) => movie.owner.equals(req.user._id))
     .then((match) => {
       if (!match) {
