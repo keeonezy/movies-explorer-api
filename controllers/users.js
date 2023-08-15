@@ -7,6 +7,8 @@ const BadRequestError = require('../errors/status-400');
 const NotFoundError = require('../errors/status-404');
 const ConflictError = require('../errors/status-409');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.createUser = (req, res, next) => {
   bcrypt.hash(String(req.body.password), 10)
     .then((hash) => User.create({
