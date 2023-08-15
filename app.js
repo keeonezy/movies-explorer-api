@@ -1,12 +1,16 @@
 // Express фреймворка
 const express = require('express');
+require('dotenv').config();
 // Для работы с БД
 const mongoose = require('mongoose');
 const router = require('./routes');
+const cors = require('./middlewares/cors');
 const { PORT, urlBD } = require('./config');
 
 // Создаем сервер
 const app = express();
+app.use(cors); // проверяем cors запросы
+console.log(process.env.NODE_ENV);
 
 // Подключаемся к БД
 mongoose.connect(urlBD);

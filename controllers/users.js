@@ -30,7 +30,17 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-// module.exports.loginUser = (req, res, next) => { }
+module.exports.loginUser = (req, res, next) => {
+  const { email, password } = req.body;
+
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      // Если не будет env, то будет использоваться dev ключ
+      const token = jwt.sign({ _id: user._id }, NODE_ENV !== 'production' ? 'SECRET__HEHE' : JWT_SECRET, { expiresIn: '7d' });
+      res.send({ token });
+    })
+    .catch(next);
+};
 
 // module.exports.getUserInfo = (req, res, next) => { }
 
