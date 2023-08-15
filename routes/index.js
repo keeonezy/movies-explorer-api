@@ -4,10 +4,11 @@ const router = require('express').Router();
 // const moviesRouter = require('./movies');
 const { createUser, loginUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
+const { signupValidator, signinValidator } = require('../middlewares/validation');
 const NotFoundError = require('../errors/status-404');
 
-router.post('/signin', loginUser);
-router.post('/signup', createUser);
+router.post('/signin', signinValidator, loginUser);
+router.post('/signup', signupValidator, createUser);
 router.use(auth);
 
 // router.use(userRouter);

@@ -4,9 +4,9 @@ require('dotenv').config();
 // Для работы с БД
 const mongoose = require('mongoose');
 const router = require('./routes');
+const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
-// const router = require('./routes');
 const { PORT, urlBD } = require('./config');
 
 // Создаем сервер
@@ -22,6 +22,8 @@ mongoose.connection.on('error', () => console.log('Бд сломалась - '))
 app.use(express.json());
 
 app.use(requestLogger); // подключаем логгер запросов
+
+app.use(errors()); // обработчик ошибок celebrate
 
 app.use(router);
 
