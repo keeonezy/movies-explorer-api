@@ -53,4 +53,21 @@ module.exports.getUserInfo = (req, res, next) => {
     });
 };
 
-// module.exports.updateUser = (req, res, next) => { }
+module.exports.updateUser = (req, res, next) => {
+  const { name, about } = req.body;
+  const owner = req.user._id;
+
+  User.findByIdAndUpdate(owner, { name, about }, { new: true, runValidators: true })
+    .then((user) => {
+      if (user) {
+        res.send(user);
+      } else {
+        throw new NotFoundError('Пользователь не найден');
+      }
+    })
+    .catch((err) => {
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new BadRequestError('Не правильно переданы данные'));
+      } else next(err);
+    });
+};
