@@ -7,8 +7,8 @@ const BadRequestError = require('../errors/status-400');
 const ForbiddenError = require('../errors/status-403');
 const NotFoundError = require('../errors/status-404');
 
-module.exports.getMovies = (req, res, next) => { }
+module.exports.getMovies = (req, res, next) => { };
 
-module.exports.createMovies = (req, res, next) => { }
+module.exports.createMovies = (req, res, next) => { };
 
-module.exports.deleteMovies = (req, res, next) => { }
+module.exports.deleteMovies = (req, res, next) => { };
