@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema({
 
   name: {
     type: String,
-    required: true,
     // Минимальная длина символов
     minlength: 2,
     // Максимальная длина символов

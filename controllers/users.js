@@ -30,8 +30,8 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.loginUser = (req, res, next) => { }
+// module.exports.loginUser = (req, res, next) => { }
 
-module.exports.getUserInfo = (req, res, next) => { }
+// module.exports.getUserInfo = (req, res, next) => { }
 
-module.exports.updateUser = (req, res, next) => { }
+// module.exports.updateUser = (req, res, next) => { }
