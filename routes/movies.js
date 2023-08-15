@@ -3,6 +3,6 @@ const router = require('express').Router();
 
 // router.get('/movies', getMovies);
 // router.post('/movies', createMovies);
-// router.post('/movies/:id ', deleteMovies);
+// router.delete('/movies/:id ', deleteMovies);
 
 module.exports = router;
