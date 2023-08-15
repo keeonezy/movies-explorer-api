@@ -54,10 +54,10 @@ module.exports.getUserInfo = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name } = req.body;
   const owner = req.user._id;
 
-  User.findByIdAndUpdate(owner, { name, about }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(owner, { name }, { new: true, runValidators: true })
     .then((user) => {
       if (user) {
         res.send(user);
