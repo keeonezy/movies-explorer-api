@@ -44,6 +44,13 @@ module.exports.loginUser = (req, res, next) => {
     .catch(next);
 };
 
-// module.exports.getUserInfo = (req, res, next) => { }
+module.exports.getUserInfo = (req, res, next) => {
+  User.findById(req.user._id)
+    .orFail(() => { throw new NotFoundError('Пользователь не найден'); })
+    .then((data) => res.send({ data }))
+    .catch((err) => {
+      next(err);
+    });
+};
 
 // module.exports.updateUser = (req, res, next) => { }
