@@ -4,26 +4,32 @@ const validator = require('validator');
 const moviesChema = new mongoose.Schema({
   country: {
     type: String,
+    required: true,
   },
 
   director: {
     type: String,
+    required: true,
   },
 
   duration: {
     type: Number,
+    required: true,
   },
 
   year: {
     type: String,
+    required: true,
   },
 
   description: {
     type: String,
+    required: true,
   },
 
   image: {
     type: String,
+    required: true,
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Не корректный URL',
@@ -32,6 +38,7 @@ const moviesChema = new mongoose.Schema({
 
   trailerLink: {
     type: String,
+    required: true,
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Не корректный URL',
@@ -40,6 +47,7 @@ const moviesChema = new mongoose.Schema({
 
   thumbnail: {
     type: String,
+    required: true,
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Не корректный URL',
@@ -58,6 +66,7 @@ const moviesChema = new mongoose.Schema({
 
   nameRU: {
     type: String,
+    required: true,
   },
 
   nameEN: {
