@@ -23,11 +23,11 @@ app.use(express.json());
 
 app.use(requestLogger); // подключаем логгер запросов
 
-app.use(errors()); // обработчик ошибок celebrate
-
 app.use(router);
 
 app.use(errorLogger); // логгер ошибок
+
+app.use(errors()); // обработчик ошибок celebrate
 
 // централизованный обработчик ошибок
 app.use((err, req, res, next) => {
