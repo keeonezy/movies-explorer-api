@@ -31,7 +31,7 @@ module.exports.deleteMovies = (req, res, next) => {
     .then((movie) => movie.owner.equals(req.user._id))
     .then((match) => {
       if (!match) {
-        throw new ForbiddenError('Нет прав для удаления данной карточки');
+        throw new ForbiddenError('Нет прав для удаления данного');
       }
       return Movie.findByIdAndRemove(req.params.movieId);
     })

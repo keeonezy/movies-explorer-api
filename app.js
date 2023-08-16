@@ -5,11 +5,17 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const errorCheck = require('./middlewares/checkError');
 const { PORT, urlBD } = require('./config');
+
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 15 минут
+  max: 100, // 100 запросов разрешается на IP
+});
 
 // Создаем сервер
 const app = express();
@@ -23,6 +29,7 @@ mongoose.connection.on('error', () => console.log('Бд сломалась - '))
 
 app.use(express.json());
 app.use(helmet());
+app.use(limiter);
 
 app.use(requestLogger); // подключаем логгер запросов
 
