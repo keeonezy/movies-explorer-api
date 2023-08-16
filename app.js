@@ -4,9 +4,11 @@ require('dotenv').config();
 // Для работы с БД
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const helmet = require('helmet');
 const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
+const errorCheck = require('./middlewares/checkError');
 const { PORT, urlBD } = require('./config');
 
 // Создаем сервер
@@ -20,6 +22,7 @@ mongoose.connection.on('connected', () => console.log('Связь с БД уст
 mongoose.connection.on('error', () => console.log('Бд сломалась - '));
 
 app.use(express.json());
+app.use(helmet());
 
 app.use(requestLogger); // подключаем логгер запросов
 
@@ -29,16 +32,7 @@ app.use(errorLogger); // логгер ошибок
 
 app.use(errors()); // обработчик ошибок celebrate
 
-// централизованный обработчик ошибок
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode)
-    .send({
-      message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
-    });
-
-  next();
-});
+app.use(errorCheck);
 
 // Беру порт и передаю колбэк, он вызовется в момент его старта
 app.listen(PORT, () => {

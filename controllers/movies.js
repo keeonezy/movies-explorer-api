@@ -7,7 +7,7 @@ const NotFoundError = require('../errors/status-404');
 
 module.exports.getMovies = (req, res, next) => {
   Movie
-    .find({}).sort({ createdAt: -1 })
+    .find({ owner: req.user._id }).sort({ createdAt: -1 })
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -27,7 +27,7 @@ module.exports.createMovies = (req, res, next) => {
 
 module.exports.deleteMovies = (req, res, next) => {
   Movie.findByIdAndDelete(req.params.movieId)
-    .orFail(() => { throw new NotFoundError('Фильм для удаления не найдена'); })
+    .orFail(() => { throw new NotFoundError('Фильм для удаления не найден'); })
     .then((movie) => movie.owner.equals(req.user._id))
     .then((match) => {
       if (!match) {
