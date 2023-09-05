@@ -47,23 +47,22 @@ module.exports.loginUser = (req, res, next) => {
 module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => { throw new NotFoundError('Пользователь не найден'); })
-    .then((data) => res.send({ data }))
+    .then((data) => res.send(data))
     .catch((err) => {
       next(err);
     });
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name } = req.body;
-  const owner = req.user._id;
-
-  User.findByIdAndUpdate(owner, { name }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(req.user._id, req.body, {
+    new: true,
+    runValidators: true,
+  })
     .then((user) => {
-      if (user) {
-        res.send(user);
-      } else {
+      if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
+      res.send(user);
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
