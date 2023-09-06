@@ -27,15 +27,16 @@ module.exports.createMovies = (req, res, next) => {
 
 module.exports.deleteMovies = (req, res, next) => {
   Movie.findByIdAndDelete(req.params.movieId)
-    .orFail(() => { throw new NotFoundError('Фильм для удаления не найден'); })
-    .then((movie) => movie.owner.equals(req.user._id))
-    .then((match) => {
-      if (!match) {
+    .then((movie) => {
+      if (!movie) {
+        throw new NotFoundError('Фильм для удаления не найден');
+      } else if (!(req.user._id === movie.owner.toString())) {
         throw new ForbiddenError('Нет прав для удаления данного');
       }
-      return Movie.findByIdAndRemove(req.params.movieId);
+      return Movie.deleteOne({ _id: movie._id }).then(() => {
+        res.send(movie);
+      });
     })
-    .then((movie) => res.send({ data: movie }))
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Не правильно переданы данные'));
