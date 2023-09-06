@@ -2,7 +2,7 @@
 
 ## Информация о сервере
 Репозиторий: https://github.com/keeonezy/movies-explorer-api  
-Домен: api.film.nomoreparties.co  
+Домен API: https://api.film.nomoreparties.co  
 IP: 158.160.18.246
 
 ## Директории
