@@ -66,7 +66,9 @@ module.exports.updateUser = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err instanceof mongoose.Error.ValidationError) {
+      if (err.code === 11000) {
+        next(new ConflictError('Данный email используется другим пользователем'));
+      } if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Не правильно переданы данные'));
       } else next(err);
     });
